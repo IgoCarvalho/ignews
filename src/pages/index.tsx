@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 import { SubscribeButton } from '@/components/SubscribeButton/SubscribeButton';
-import { stripe } from '@/services/stripe';
+import { stripe, SUBSCRIPTION_PRICE_ID } from '@/services/stripe';
 
 import avatarImg from '@/assets/images/avatar.svg';
 
@@ -46,7 +46,7 @@ export default function Home({ product }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const price = await stripe.prices.retrieve('price_1MZdPKF2dcVlCjLZ8bUl9hL0');
+  const price = await stripe.prices.retrieve(SUBSCRIPTION_PRICE_ID);
 
   const usdFormatter = Intl.NumberFormat('en-US', {
     style: 'currency',
