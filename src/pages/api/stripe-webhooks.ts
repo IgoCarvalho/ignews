@@ -28,13 +28,22 @@ export default async function handler(request: NextApiRequest, response: NextApi
     if (isEventRelevant(event.type)) {
       try {
         switch (event.type) {
+          case StripeWebhooks.SubscriptionUpdated:
+          case StripeWebhooks.SubscriptionDeleted: {
+            const subscription = event.data.object as Stripe.Subscription;
+
+            await saveSubscription(subscription.id, subscription.customer.toString());
+
+            break;
+          }
           case StripeWebhooks.Completed: {
             const checkoutSession = event.data.object as Stripe.Checkout.Session;
 
             const subscriptionId = checkoutSession.subscription?.toString() as string;
             const customerId = checkoutSession.customer?.toString() as string;
 
-            await saveSubscription(subscriptionId, customerId);
+            await saveSubscription(subscriptionId, customerId, true);
+
             break;
           }
           default:
