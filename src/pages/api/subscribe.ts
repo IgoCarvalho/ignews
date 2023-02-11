@@ -1,14 +1,9 @@
+import { query as q, values } from 'faunadb';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
-import { query as q, values } from 'faunadb';
 
-import {
-  stripe,
-  SUBSCRIPTION_PRICE_ID,
-  userByEmailQuery,
-  usersCollection,
-} from '@/services/stripe';
-import { fauna } from '@/services/fauna';
+import { fauna, userByEmailQuery, usersCollection } from '@/services/fauna';
+import { stripe, SUBSCRIPTION_PRICE_ID } from '@/services/stripe';
 
 import { authOptions } from './auth/[...nextauth]';
 

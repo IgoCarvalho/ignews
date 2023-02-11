@@ -1,5 +1,4 @@
 import Stripe from 'stripe';
-import { query as q } from 'faunadb';
 
 import packageJson from '../../package.json';
 
@@ -13,6 +12,12 @@ export const stripe = new Stripe(process.env.STRIPE_API_KEY as string, {
 
 export const SUBSCRIPTION_PRICE_ID = 'price_1MZdPKF2dcVlCjLZ8bUl9hL0';
 
-export const userByEmailQuery = (email: string) =>
-  q.Match(q.Index('user_by_email'), q.Casefold(email));
-export const usersCollection = q.Collection('Users');
+export const StripeWebhooks = {
+  Completed: 'checkout.session.completed',
+  SubscriptionDeleted: 'customer.subscription.deleted',
+  SubscriptionUpdated: 'customer.subscription.updated',
+};
+
+export function isEventRelevant(hook: string) {
+  return Object.values(StripeWebhooks).includes(hook);
+}
