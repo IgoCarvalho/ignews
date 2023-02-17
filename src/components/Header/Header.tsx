@@ -1,9 +1,10 @@
 import Image from 'next/image';
 
-import styles from './Header.module.scss';
-
 import logoImg from '@/assets/images/logo.svg';
-import { SignInButton } from '../SignInButton/SignInButton';
+import { ActiveLink } from '@/components/ActiveLink/ActiveLink';
+import { SignInButton } from '@/components/SignInButton/SignInButton';
+
+import styles from './Header.module.scss';
 
 export function Header() {
   return (
@@ -12,8 +13,12 @@ export function Header() {
         <Image src={logoImg} alt="ig.news" />
 
         <nav>
-          <a className={styles.active}>Home</a>
-          <a>Posts</a>
+          <ActiveLink activeClass={styles.active} href="/">
+            Home
+          </ActiveLink>
+          <ActiveLink activeClass={styles.active} href="/posts">
+            Posts
+          </ActiveLink>
         </nav>
 
         <SignInButton />
