@@ -1,16 +1,17 @@
-import Image from 'next/image';
-
-import logoImg from '@/assets/images/logo.svg';
+import { LogoImg } from '@/assets/images/LogoImg';
 import { ActiveLink } from '@/components/ActiveLink/ActiveLink';
 import { SignInButton } from '@/components/SignInButton/SignInButton';
 
 import styles from './Header.module.scss';
+import Link from 'next/link';
 
 export function Header() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <Image src={logoImg} alt="ig.news" />
+        <Link href="/">
+          <LogoImg />
+        </Link>
 
         <nav>
           <ActiveLink activeClass={styles.active} href="/">
